@@ -1,0 +1,239 @@
+object Form1: TForm1
+  Left = 329
+  Height = 480
+  Top = 150
+  Width = 640
+  Caption = 'Yus API Tester'
+  ClientHeight = 480
+  ClientWidth = 640
+  Constraints.MinHeight = 480
+  Constraints.MinWidth = 640
+  OnShow = FormShow
+  LCLVersion = '2.0.10.0'
+  object txt_url: TEdit
+    AnchorSideRight.Control = Button1
+    Left = 172
+    Height = 23
+    Top = 10
+    Width = 377
+    Anchors = [akTop, akLeft, akRight]
+    BorderSpacing.Right = 8
+    TabOrder = 0
+    Text = 'http://localhost:3000'
+  end
+  object Button1: TButton
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    Left = 557
+    Height = 25
+    Top = 8
+    Width = 75
+    Anchors = [akTop, akRight]
+    BorderSpacing.Right = 8
+    Caption = 'Send'
+    OnClick = Button1Click
+    TabOrder = 1
+  end
+  object Label1: TLabel
+    Left = 8
+    Height = 15
+    Top = 14
+    Width = 66
+    Caption = 'URL Address'
+    ParentColor = False
+  end
+  object cmb_method: TComboBox
+    Left = 84
+    Height = 23
+    Top = 10
+    Width = 84
+    ItemHeight = 15
+    ItemIndex = 0
+    Items.Strings = (
+      'GET'
+      'POST'
+    )
+    Style = csDropDownList
+    TabOrder = 2
+    Text = 'GET'
+  end
+  object PairSplitter1: TPairSplitter
+    AnchorSideLeft.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = Owner
+    AnchorSideBottom.Side = asrBottom
+    Cursor = crVSplit
+    Left = 8
+    Height = 431
+    Top = 41
+    Width = 624
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Left = 8
+    BorderSpacing.Right = 8
+    BorderSpacing.Bottom = 8
+    Position = 189
+    SplitterType = pstVertical
+    object PairSplitterSide1: TPairSplitterSide
+      Cursor = crArrow
+      Left = 0
+      Height = 189
+      Top = 0
+      Width = 624
+      ClientWidth = 624
+      ClientHeight = 189
+      object PageControl1: TPageControl
+        AnchorSideLeft.Control = PairSplitterSide1
+        AnchorSideRight.Control = PairSplitterSide1
+        AnchorSideRight.Side = asrBottom
+        AnchorSideBottom.Control = PairSplitterSide1
+        AnchorSideBottom.Side = asrBottom
+        Left = 0
+        Height = 177
+        Top = 4
+        Width = 624
+        ActivePage = TabSheet2
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        BorderSpacing.Bottom = 8
+        TabIndex = 2
+        TabOrder = 0
+        object TabSheet3: TTabSheet
+          Caption = 'Authorization'
+          ClientHeight = 149
+          ClientWidth = 616
+          object mm_authkey: TMemo
+            AnchorSideTop.Control = TabSheet3
+            AnchorSideRight.Control = TabSheet3
+            AnchorSideRight.Side = asrBottom
+            AnchorSideBottom.Control = TabSheet3
+            AnchorSideBottom.Side = asrBottom
+            Left = 112
+            Height = 133
+            Top = 8
+            Width = 496
+            Anchors = [akTop, akLeft, akRight, akBottom]
+            BorderSpacing.Top = 8
+            BorderSpacing.Right = 8
+            BorderSpacing.Bottom = 8
+            TabOrder = 0
+          end
+          object cmb_auth: TComboBox
+            Left = 4
+            Height = 23
+            Top = 8
+            Width = 100
+            ItemHeight = 15
+            ItemIndex = 0
+            Items.Strings = (
+              'Bearer'
+            )
+            Style = csDropDownList
+            TabOrder = 1
+            Text = 'Bearer'
+          end
+        end
+        object TabSheet1: TTabSheet
+          Caption = 'Header'
+          ClientHeight = 149
+          ClientWidth = 616
+          object mm_header: TMemo
+            AnchorSideTop.Control = TabSheet1
+            AnchorSideRight.Control = TabSheet1
+            AnchorSideRight.Side = asrBottom
+            AnchorSideBottom.Control = TabSheet1
+            AnchorSideBottom.Side = asrBottom
+            Left = 7
+            Height = 133
+            Top = 8
+            Width = 601
+            Anchors = [akTop, akLeft, akRight, akBottom]
+            BorderSpacing.Left = 8
+            BorderSpacing.Top = 8
+            BorderSpacing.Right = 8
+            BorderSpacing.Bottom = 8
+            Lines.Strings = (
+              '{}'
+            )
+            ScrollBars = ssBoth
+            TabOrder = 0
+          end
+        end
+        object TabSheet2: TTabSheet
+          Caption = 'Body'
+          ClientHeight = 149
+          ClientWidth = 616
+          object mm_body: TMemo
+            AnchorSideTop.Control = TabSheet2
+            AnchorSideRight.Control = TabSheet2
+            AnchorSideRight.Side = asrBottom
+            AnchorSideBottom.Control = TabSheet2
+            AnchorSideBottom.Side = asrBottom
+            Left = 112
+            Height = 133
+            Top = 8
+            Width = 496
+            Anchors = [akTop, akLeft, akRight, akBottom]
+            BorderSpacing.Top = 8
+            BorderSpacing.Right = 8
+            BorderSpacing.Bottom = 8
+            Lines.Strings = (
+              '{}'
+            )
+            ScrollBars = ssBoth
+            TabOrder = 0
+          end
+          object cmb_post_type: TComboBox
+            Left = 4
+            Height = 23
+            Top = 8
+            Width = 100
+            ItemHeight = 15
+            ItemIndex = 2
+            Items.Strings = (
+              'Text'
+              'JavaScript'
+              'JSON'
+              'HTML'
+              'XML'
+            )
+            Style = csDropDownList
+            TabOrder = 1
+            Text = 'JSON'
+          end
+        end
+      end
+    end
+    object PairSplitterSide2: TPairSplitterSide
+      Cursor = crArrow
+      Left = 0
+      Height = 237
+      Top = 194
+      Width = 624
+      ClientWidth = 624
+      ClientHeight = 237
+      object Label2: TLabel
+        Left = 4
+        Height = 15
+        Top = 8
+        Width = 50
+        Caption = 'Response'
+        ParentColor = False
+      end
+      object mm_respon: TMemo
+        AnchorSideLeft.Control = PairSplitterSide2
+        AnchorSideRight.Control = PairSplitterSide2
+        AnchorSideRight.Side = asrBottom
+        AnchorSideBottom.Control = PairSplitterSide2
+        AnchorSideBottom.Side = asrBottom
+        Left = 0
+        Height = 205
+        Top = 32
+        Width = 624
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        ReadOnly = True
+        ScrollBars = ssBoth
+        TabOrder = 0
+      end
+    end
+  end
+end
