@@ -1,11 +1,11 @@
 object Form1: TForm1
-  Left = 329
+  Left = 291
   Height = 480
-  Top = 150
-  Width = 640
+  Top = 90
+  Width = 740
   Caption = 'Yus API Tester'
   ClientHeight = 480
-  ClientWidth = 640
+  ClientWidth = 740
   Constraints.MinHeight = 480
   Constraints.MinWidth = 640
   OnShow = FormShow
@@ -15,7 +15,7 @@ object Form1: TForm1
     Left = 172
     Height = 23
     Top = 10
-    Width = 377
+    Width = 477
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Right = 8
     TabOrder = 0
@@ -24,7 +24,7 @@ object Form1: TForm1
   object Button1: TButton
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
-    Left = 557
+    Left = 657
     Height = 25
     Top = 8
     Width = 75
@@ -58,16 +58,15 @@ object Form1: TForm1
     Text = 'GET'
   end
   object PairSplitter1: TPairSplitter
-    AnchorSideLeft.Control = Owner
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = Owner
     AnchorSideBottom.Side = asrBottom
     Cursor = crVSplit
-    Left = 8
+    Left = 184
     Height = 431
     Top = 41
-    Width = 624
+    Width = 548
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Left = 8
     BorderSpacing.Right = 8
@@ -79,8 +78,8 @@ object Form1: TForm1
       Left = 0
       Height = 189
       Top = 0
-      Width = 624
-      ClientWidth = 624
+      Width = 548
+      ClientWidth = 548
       ClientHeight = 189
       object PageControl1: TPageControl
         AnchorSideLeft.Control = PairSplitterSide1
@@ -91,16 +90,16 @@ object Form1: TForm1
         Left = 0
         Height = 177
         Top = 4
-        Width = 624
-        ActivePage = TabSheet2
+        Width = 548
+        ActivePage = TabSheet1
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Bottom = 8
-        TabIndex = 2
+        TabIndex = 1
         TabOrder = 0
         object TabSheet3: TTabSheet
           Caption = 'Authorization'
           ClientHeight = 149
-          ClientWidth = 616
+          ClientWidth = 540
           object mm_authkey: TMemo
             AnchorSideTop.Control = TabSheet3
             AnchorSideRight.Control = TabSheet3
@@ -110,7 +109,7 @@ object Form1: TForm1
             Left = 112
             Height = 133
             Top = 8
-            Width = 496
+            Width = 420
             Anchors = [akTop, akLeft, akRight, akBottom]
             BorderSpacing.Top = 8
             BorderSpacing.Right = 8
@@ -135,7 +134,7 @@ object Form1: TForm1
         object TabSheet1: TTabSheet
           Caption = 'Header'
           ClientHeight = 149
-          ClientWidth = 616
+          ClientWidth = 540
           object mm_header: TMemo
             AnchorSideTop.Control = TabSheet1
             AnchorSideRight.Control = TabSheet1
@@ -145,7 +144,7 @@ object Form1: TForm1
             Left = 7
             Height = 133
             Top = 8
-            Width = 601
+            Width = 525
             Anchors = [akTop, akLeft, akRight, akBottom]
             BorderSpacing.Left = 8
             BorderSpacing.Top = 8
@@ -208,8 +207,8 @@ object Form1: TForm1
       Left = 0
       Height = 237
       Top = 194
-      Width = 624
-      ClientWidth = 624
+      Width = 548
+      ClientWidth = 548
       ClientHeight = 237
       object Label2: TLabel
         Left = 4
@@ -228,12 +227,49 @@ object Form1: TForm1
         Left = 0
         Height = 205
         Top = 32
-        Width = 624
+        Width = 548
         Anchors = [akTop, akLeft, akRight, akBottom]
         ReadOnly = True
         ScrollBars = ssBoth
         TabOrder = 0
       end
     end
+  end
+  object LstReq: TListBox
+    AnchorSideBottom.Side = asrBottom
+    Left = 8
+    Height = 381
+    Top = 41
+    Width = 164
+    Anchors = [akTop, akLeft, akBottom]
+    ItemHeight = 0
+    TabOrder = 4
+  end
+  object sqlite3conn: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    DatabaseName = 'db'
+    KeepConnection = False
+    Transaction = SQLTransaction1
+    AlwaysUseBigint = False
+    Left = 63
+    Top = 154
+  end
+  object SQLQuery1: TSQLQuery
+    FieldDefs = <>
+    Database = sqlite3conn
+    Transaction = SQLTransaction1
+    SQL.Strings = (
+      'select * from karyawan'
+    )
+    Params = <>
+    Left = 77
+    Top = 106
+  end
+  object SQLTransaction1: TSQLTransaction
+    Active = False
+    Database = sqlite3conn
+    Left = 33
+    Top = 115
   end
 end
