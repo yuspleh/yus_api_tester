@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 291
+  Left = 514
   Height = 480
-  Top = 90
+  Top = 105
   Width = 740
   Caption = 'Yus API Tester'
   ClientHeight = 480
@@ -18,6 +18,7 @@ object Form1: TForm1
     Width = 477
     Anchors = [akTop, akLeft, akRight]
     BorderSpacing.Right = 8
+    ParentFont = False
     TabOrder = 0
     Text = 'http://localhost:3000'
   end
@@ -32,6 +33,7 @@ object Form1: TForm1
     BorderSpacing.Right = 8
     Caption = 'Send'
     OnClick = Button1Click
+    ParentFont = False
     TabOrder = 1
   end
   object Label1: TLabel
@@ -41,6 +43,7 @@ object Form1: TForm1
     Width = 66
     Caption = 'URL Address'
     ParentColor = False
+    ParentFont = False
   end
   object cmb_method: TComboBox
     Left = 84
@@ -53,6 +56,7 @@ object Form1: TForm1
       'GET'
       'POST'
     )
+    ParentFont = False
     Style = csDropDownList
     TabOrder = 2
     Text = 'GET'
@@ -60,11 +64,10 @@ object Form1: TForm1
   object PairSplitter1: TPairSplitter
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
-    AnchorSideBottom.Control = Owner
-    AnchorSideBottom.Side = asrBottom
+    AnchorSideBottom.Control = ButtonPanel1
     Cursor = crVSplit
     Left = 184
-    Height = 431
+    Height = 391
     Top = 41
     Width = 548
     Anchors = [akTop, akLeft, akRight, akBottom]
@@ -94,12 +97,14 @@ object Form1: TForm1
         ActivePage = TabSheet1
         Anchors = [akTop, akLeft, akRight, akBottom]
         BorderSpacing.Bottom = 8
+        ParentFont = False
         TabIndex = 1
         TabOrder = 0
         object TabSheet3: TTabSheet
           Caption = 'Authorization'
           ClientHeight = 149
           ClientWidth = 540
+          ParentFont = False
           object mm_authkey: TMemo
             AnchorSideTop.Control = TabSheet3
             AnchorSideRight.Control = TabSheet3
@@ -114,6 +119,7 @@ object Form1: TForm1
             BorderSpacing.Top = 8
             BorderSpacing.Right = 8
             BorderSpacing.Bottom = 8
+            ParentFont = False
             TabOrder = 0
           end
           object cmb_auth: TComboBox
@@ -126,6 +132,7 @@ object Form1: TForm1
             Items.Strings = (
               'Bearer'
             )
+            ParentFont = False
             Style = csDropDownList
             TabOrder = 1
             Text = 'Bearer'
@@ -135,6 +142,7 @@ object Form1: TForm1
           Caption = 'Header'
           ClientHeight = 149
           ClientWidth = 540
+          ParentFont = False
           object mm_header: TMemo
             AnchorSideTop.Control = TabSheet1
             AnchorSideRight.Control = TabSheet1
@@ -153,6 +161,7 @@ object Form1: TForm1
             Lines.Strings = (
               '{}'
             )
+            ParentFont = False
             ScrollBars = ssBoth
             TabOrder = 0
           end
@@ -161,6 +170,7 @@ object Form1: TForm1
           Caption = 'Body'
           ClientHeight = 149
           ClientWidth = 616
+          ParentFont = False
           object mm_body: TMemo
             AnchorSideTop.Control = TabSheet2
             AnchorSideRight.Control = TabSheet2
@@ -178,6 +188,7 @@ object Form1: TForm1
             Lines.Strings = (
               '{}'
             )
+            ParentFont = False
             ScrollBars = ssBoth
             TabOrder = 0
           end
@@ -195,6 +206,7 @@ object Form1: TForm1
               'HTML'
               'XML'
             )
+            ParentFont = False
             Style = csDropDownList
             TabOrder = 1
             Text = 'JSON'
@@ -205,11 +217,11 @@ object Form1: TForm1
     object PairSplitterSide2: TPairSplitterSide
       Cursor = crArrow
       Left = 0
-      Height = 237
-      Top = 194
+      Height = 198
+      Top = 193
       Width = 548
       ClientWidth = 548
-      ClientHeight = 237
+      ClientHeight = 198
       object Label2: TLabel
         Left = 4
         Height = 15
@@ -217,6 +229,7 @@ object Form1: TForm1
         Width = 50
         Caption = 'Response'
         ParentColor = False
+        ParentFont = False
       end
       object mm_respon: TMemo
         AnchorSideLeft.Control = PairSplitterSide2
@@ -225,25 +238,47 @@ object Form1: TForm1
         AnchorSideBottom.Control = PairSplitterSide2
         AnchorSideBottom.Side = asrBottom
         Left = 0
-        Height = 205
-        Top = 32
+        Height = 170
+        Top = 28
         Width = 548
         Anchors = [akTop, akLeft, akRight, akBottom]
+        ParentFont = False
         ReadOnly = True
         ScrollBars = ssBoth
         TabOrder = 0
       end
     end
   end
-  object LstReq: TListBox
-    AnchorSideBottom.Side = asrBottom
+  object LstReq: TDBLookupListBox
     Left = 8
-    Height = 381
-    Top = 41
-    Width = 164
-    Anchors = [akTop, akLeft, akBottom]
-    ItemHeight = 0
+    Height = 388
+    Top = 44
+    Width = 167
+    KeyField = 'id'
+    ListField = 'url'
+    ListFieldIndex = 0
+    ListSource = dsList
+    LookupCache = False
+    PopupMenu = popList
     TabOrder = 4
+  end
+  object ButtonPanel1: TButtonPanel
+    Left = 6
+    Height = 34
+    Top = 440
+    Width = 728
+    OKButton.Name = 'OKButton'
+    OKButton.Caption = 'Save'
+    OKButton.OnClick = actSaveExecute
+    HelpButton.Name = 'HelpButton'
+    HelpButton.DefaultCaption = True
+    CloseButton.Name = 'CloseButton'
+    CloseButton.DefaultCaption = True
+    CancelButton.Name = 'CancelButton'
+    CancelButton.Caption = 'Delete'
+    CancelButton.OnClick = actDeleteExecute
+    TabOrder = 5
+    ShowButtons = [pbOK, pbCancel]
   end
   object sqlite3conn: TSQLite3Connection
     Connected = False
@@ -263,13 +298,46 @@ object Form1: TForm1
       'select * from karyawan'
     )
     Params = <>
-    Left = 77
-    Top = 106
+    Left = 83
+    Top = 67
   end
   object SQLTransaction1: TSQLTransaction
     Active = False
     Database = sqlite3conn
-    Left = 33
-    Top = 115
+    Left = 29
+    Top = 70
+  end
+  object popList: TPopupMenu
+    Left = 118
+    Top = 244
+    object MenuItem1: TMenuItem
+      Caption = 'Delete'
+      OnClick = MenuItem1Click
+    end
+  end
+  object dsList: TDataSource
+    DataSet = sqlList
+    Left = 134
+    Top = 64
+  end
+  object sqlList: TSQLQuery
+    FieldDefs = <>
+    Database = sqlite3conn
+    Transaction = SQLTransaction1
+    Params = <>
+    Left = 32
+    Top = 234
+  end
+  object ActionList1: TActionList
+    Left = 85
+    Top = 330
+    object actDelete: TAction
+      Caption = 'Delete'
+      OnExecute = actDeleteExecute
+    end
+    object actSave: TAction
+      Caption = 'Save'
+      OnExecute = actSaveExecute
+    end
   end
 end

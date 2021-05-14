@@ -6,19 +6,26 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ComCtrls,
-  PairSplitter, fphttpclient, fpjson, opensslsockets, SQLite3Conn, SQLDB;
+  PairSplitter, Menus, DBCtrls, ExtCtrls, ButtonPanel, ActnList, fphttpclient,
+  fpjson, opensslsockets, SQLite3Conn, SQLDB, DB;
 
 type
 
   { TForm1 }
 
   TForm1 = class(TForm)
+    actDelete: TAction;
+    actSave: TAction;
+    ActionList1: TActionList;
     Button1: TButton;
+    ButtonPanel1: TButtonPanel;
     cmb_method: TComboBox;
     cmb_post_type: TComboBox;
     cmb_auth: TComboBox;
+    LstReq: TDBLookupListBox;
+    dsList: TDataSource;
     Label2: TLabel;
-    LstReq: TListBox;
+    MenuItem1: TMenuItem;
     mm_authkey: TMemo;
     mm_body: TMemo;
     mm_header: TMemo;
@@ -27,8 +34,10 @@ type
     PairSplitter1: TPairSplitter;
     PairSplitterSide1: TPairSplitterSide;
     PairSplitterSide2: TPairSplitterSide;
+    popList: TPopupMenu;
     sqlite3conn: TSQLite3Connection;
     SQLQuery1: TSQLQuery;
+    sqlList: TSQLQuery;
     SQLTransaction1: TSQLTransaction;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
@@ -36,8 +45,11 @@ type
     txt_url: TEdit;
     Label1: TLabel;
 
+    procedure actDeleteExecute(Sender: TObject);
+    procedure actSaveExecute(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure MenuItem1Click(Sender: TObject);
     procedure RefreshUrlList();
   private
 
@@ -56,13 +68,14 @@ implementation
 procedure TForm1.RefreshUrlList();
 begin
   LstReq.Items.Clear;
-  SQLQuery1.SQL.Text:='select * from '+tbl;
-  SQLQuery1.Open;
-   while not SQLQuery1.Eof do begin
+  sqlList.Active:=false;
+  sqlList.SQL.Text:='select * from '+tbl;
+  sqlList.Active:=true;
+   {while not SQLQuery1.Eof do begin
      LstReq.Items.Add(SQLQuery1.FieldByName('url').AsString);
      SQLQuery1.Next;
    end;
-   SQLQuery1.Close;
+   SQLQuery1.Close; }
 end;
 
 procedure TForm1.FormShow(Sender: TObject);
@@ -94,6 +107,16 @@ begin
 
 end;
 
+procedure TForm1.MenuItem1Click(Sender: TObject);
+begin
+  actDelete.Execute;
+
+  //SQLTransaction1.Commit;
+  //sqlList.Close;
+ // sqlList.Open;
+  //ShowMessage(LstReq.KeyValue);
+end;
+
 procedure TForm1.Button1Click(Sender: TObject);
 var
    M:String;
@@ -106,14 +129,6 @@ begin
 
     try
       try
-      SQLQuery1.SQL.Text:='insert into '+tbl+' (url, method, header, body) values (:url, :method, :header, :body)';
-      SQLQuery1.Params.paramByName('url').AsString := txt_url.Text;
-      SQLQuery1.Params.paramByName('method').AsString := cmb_method.Items.Strings[cmb_method.ItemIndex];
-      SQLQuery1.Params.paramByName('header').AsString := mm_header.Text;
-      SQLQuery1.Params.paramByName('body').AsString := mm_body.Text;
-      SQLQuery1.ExecSQL;
-      SQLTransaction1.Commit;
-      RefreshUrlList;
 
       Client := TFPHttpClient.Create(nil);
       M:=cmb_method.Items.Strings[cmb_method.ItemIndex];
@@ -161,6 +176,26 @@ begin
       Client.RequestBody.Free;
       Client.Free;
     end;
+end;
+
+procedure TForm1.actSaveExecute(Sender: TObject);
+begin
+  SQLQuery1.SQL.Text:='insert into '+tbl+' (url, method, header, body) values (:url, :method, :header, :body)';
+  SQLQuery1.Params.paramByName('url').AsString := txt_url.Text;
+  SQLQuery1.Params.paramByName('method').AsString := cmb_method.Items.Strings[cmb_method.ItemIndex];
+  SQLQuery1.Params.paramByName('header').AsString := mm_header.Text;
+  SQLQuery1.Params.paramByName('body').AsString := mm_body.Text;
+  SQLQuery1.ExecSQL;
+  SQLTransaction1.Commit;
+  RefreshUrlList();
+end;
+
+procedure TForm1.actDeleteExecute(Sender: TObject);
+begin
+  SQLQuery1.SQL.Text:='delete from '+tbl+' where id = :id';
+  SQLQuery1.ParamByName('id').Value:=LstReq.KeyValue;
+  SQLQuery1.ExecSQL;
+  RefreshUrlList();
 end;
 
 end.
