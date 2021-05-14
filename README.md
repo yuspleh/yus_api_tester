@@ -5,7 +5,7 @@ We use SQLite for store API information.
 
 You must manually download SQLite library (sqlite3.dll if you are using Windows) and place it same level as application file.
 
-#Installation
+# Installation
 1. Download and install Lazarus free pascal
 2. Open main project called yus_api_tester.lpi
 3. Compiles 
