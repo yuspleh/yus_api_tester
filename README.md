@@ -1,3 +1,4 @@
+![Alt text](/screenshot/yus_api_tester.jpg?raw=true "Yus API Tester")
 # yus_api_tester
 Yus API Tester is a desktop app to test Your API. It's an alternative for API tester application like Postman or Insomnia.
 
