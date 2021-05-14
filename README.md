@@ -1,2 +1,2 @@
 # yus_api_tester
-App to test Your API
+Yus API Tester is an app to test Your API
